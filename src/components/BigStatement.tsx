@@ -1,8 +1,6 @@
 import { motion } from "framer-motion";
 import { Layers, Target, LineChart } from "lucide-react";
 
-const FEATURE_IMAGE = "https://mgx-backend-cdn.metadl.com/generate/images/170285/2026-03-23/01119a0c-b1b1-49a5-8cc9-50663aa8c0eb.png";
-
 const features = [
     {
         icon: Layers,

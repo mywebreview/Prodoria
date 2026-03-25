@@ -1,8 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
-const HERO_IMAGE = "https://mgx-backend-cdn.metadl.com/generate/images/170285/2026-03-23/18865af1-c400-4d0a-9d10-e64765a61876.png";
-
 const floatingCards = [
     { label: "AI Search Optimization", delay: 0 },
     { label: "Schema Structuring", delay: 0.2 },

@@ -2,8 +2,6 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Send, CheckCircle2 } from "lucide-react";
 
-const CTA_BG = "https://mgx-backend-cdn.metadl.com/generate/images/170285/2026-03-23/848de146-7a9b-4aae-9883-d38b852e7efb.png";
-
 const trustLogos = [
     "Frame Blox",
     "Supa Blox",

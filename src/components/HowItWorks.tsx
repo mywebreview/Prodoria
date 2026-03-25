@@ -1,8 +1,6 @@
 import { motion } from "framer-motion";
 import { Database, MessageSquare, Eye } from "lucide-react";
 
-const HOW_IT_WORKS_IMAGE = "https://mgx-backend-cdn.metadl.com/generate/images/170285/2026-03-23/358d3147-09a4-441f-a698-569fd794e36e.png";
-
 const steps = [
     {
         number: "01",
