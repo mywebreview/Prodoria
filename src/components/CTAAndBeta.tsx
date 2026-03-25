@@ -17,20 +17,44 @@ export default function CTAAndBeta() {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
+        phone: "",
         businessName: "",
         website: "",
     });
     const [submitted, setSubmitted] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setSubmitted(true);
-        setTimeout(() => setSubmitted(false), 4000);
-        setFormData({ name: "", email: "", businessName: "", website: "" });
+        setIsSubmitting(true);
+        setErrorMsg("");
+
+        try {
+            const response = await fetch("/api/sendEmail", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+            });
+
+            if (!response.ok) {
+                const data = await response.json().catch(() => ({}));
+                throw new Error(data.message || "Failed to submit application");
+            }
+
+            setSubmitted(true);
+            setTimeout(() => setSubmitted(false), 4000);
+            setFormData({ name: "", email: "", phone: "", businessName: "", website: "" });
+        } catch (error) {
+            console.error(error);
+            setErrorMsg(error instanceof Error ? error.message : "Something went wrong. Please try again.");
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const inputClasses =
@@ -75,7 +99,7 @@ export default function CTAAndBeta() {
                 {/* Background Image */}
                 <div className="absolute inset-0">
                     <img
-                        src={CTA_BG}
+                        src="../public/cta.webp"
                         alt=""
                         className="w-full h-full object-cover"
                     />
@@ -168,6 +192,11 @@ export default function CTAAndBeta() {
                             </motion.div>
                         ) : (
                             <form onSubmit={handleSubmit} className="space-y-4">
+                                {errorMsg && (
+                                    <div className="p-3 rounded-lg bg-red-50 text-red-600 text-sm font-jakarta border border-red-100">
+                                        {errorMsg}
+                                    </div>
+                                )}
                                 <div>
                                     <label className="font-jakarta text-xs font-medium text-prodoria-slate mb-1.5 block">
                                         Full Name *
@@ -198,6 +227,20 @@ export default function CTAAndBeta() {
                                 </div>
                                 <div>
                                     <label className="font-jakarta text-xs font-medium text-prodoria-slate mb-1.5 block">
+                                        Phone Number *
+                                    </label>
+                                    <input
+                                        type="tel"
+                                        name="phone"
+                                        value={formData.phone}
+                                        onChange={handleChange}
+                                        placeholder="+1 (555) 000-0000"
+                                        required
+                                        className={inputClasses}
+                                    />
+                                </div>
+                                <div>
+                                    <label className="font-jakarta text-xs font-medium text-prodoria-slate mb-1.5 block">
                                         Business Name
                                     </label>
                                     <input
@@ -211,7 +254,7 @@ export default function CTAAndBeta() {
                                 </div>
                                 <div>
                                     <label className="font-jakarta text-xs font-medium text-prodoria-slate mb-1.5 block">
-                                        Website
+                                        Website (Optional)
                                     </label>
                                     <input
                                         type="url"
@@ -224,9 +267,15 @@ export default function CTAAndBeta() {
                                 </div>
                                 <button
                                     type="submit"
-                                    className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-prodoria-orange via-prodoria-pink to-prodoria-purple text-white font-jakarta font-semibold text-sm hover:opacity-90 hover:shadow-lg transition-all duration-300 mt-2"
+                                    disabled={isSubmitting}
+                                    className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-prodoria-orange via-prodoria-pink to-prodoria-purple text-white font-jakarta font-semibold text-sm hover:opacity-90 hover:shadow-lg transition-all duration-300 mt-2 disabled:opacity-70 disabled:cursor-not-allowed"
                                 >
-                                    <Send className="w-4 h-4" /> Submit Application
+                                    {isSubmitting ? (
+                                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                    ) : (
+                                        <Send className="w-4 h-4" />
+                                    )}
+                                    {isSubmitting ? "Submitting..." : "Submit Application"}
                                 </button>
                             </form>
                         )}
@@ -241,7 +290,7 @@ export default function CTAAndBeta() {
                         {/* Brand */}
                         <div>
                             <h3 className="font-jakarta font-bold text-xl text-white mb-3">
-                                PRODORIA
+                                <img src="../public/logo-white.png" alt="Prodoria Logo" className="w-28" />
                             </h3>
                             <p className="font-jakarta text-sm text-gray-400 leading-relaxed">
                                 Engineering visibility for the AI era.
@@ -292,6 +341,12 @@ export default function CTAAndBeta() {
                                     className="font-jakarta text-sm text-gray-400 hover:text-white transition-colors"
                                 >
                                     hello@prodoria.com
+                                </a>
+                                <a
+                                    href="tel:+2348077310019"
+                                    className="font-jakarta text-sm text-gray-400 hover:text-white transition-colors"
+                                >
+                                    +2348077310019
                                 </a>
                                 <p className="font-jakarta text-sm text-gray-400">
                                     About

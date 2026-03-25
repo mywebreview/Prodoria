@@ -22,9 +22,7 @@ export default function Hero() {
         <section className="relative min-h-screen overflow-hidden bg-[#F8FAFC]">
             {/* Navbar */}
             <nav className="relative z-20 flex items-center justify-between px-6 md:px-12 lg:px-20 py-5">
-                <div className="font-jakarta font-bold text-xl tracking-tight text-prodoria-dark">
-                    PRODORIA
-                </div>
+                <img src="../public/logo-black.png" alt="Prodoria Logo" className="w-28" />
                 <div className="hidden md:flex items-center gap-8 font-jakarta text-sm font-medium text-prodoria-slate">
                     <a href="#features" className="hover:text-prodoria-dark transition-colors">Features</a>
                     <a href="#how-it-works" className="hover:text-prodoria-dark transition-colors">How It Works</a>
@@ -108,7 +106,7 @@ export default function Hero() {
 
                     {/* Main image */}
                     <img
-                        src={HERO_IMAGE}
+                        src="../public/hero.webp"
                         alt="PRODORIA AI Visibility Platform"
                         className="relative w-full rounded-3xl shadow-2xl"
                     />
@@ -121,10 +119,10 @@ export default function Hero() {
                             animate={{ opacity: 1, x: 0, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.8 + card.delay }}
                             className={`absolute hidden md:flex items-center gap-2 px-4 py-2.5 bg-white/90 backdrop-blur-md rounded-xl shadow-lg border border-white/50 font-jakarta text-sm font-medium text-prodoria-dark ${i === 0
-                                    ? "top-8 -left-8 lg:-left-16"
-                                    : i === 1
-                                        ? "top-1/2 -right-6 lg:-right-14 -translate-y-1/2"
-                                        : "bottom-12 -left-4 lg:-left-12"
+                                ? "top-8 -left-8 lg:-left-16"
+                                : i === 1
+                                    ? "top-1/2 -right-6 lg:-right-14 -translate-y-1/2"
+                                    : "bottom-12 -left-4 lg:-left-12"
                                 }`}
                             style={{
                                 animation: `float ${3 + i * 0.5}s ease-in-out infinite`,

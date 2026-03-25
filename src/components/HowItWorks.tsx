@@ -66,7 +66,7 @@ export default function HowItWorks() {
                     >
                         <div className="absolute inset-0 bg-gradient-to-br from-prodoria-purple/20 via-prodoria-pink/20 to-prodoria-orange/20 rounded-3xl blur-2xl scale-105" />
                         <img
-                            src={HOW_IT_WORKS_IMAGE}
+                            src="../public/how-it-works.webp"
                             alt="AI Search Visualization"
                             className="relative w-full rounded-3xl shadow-lg"
                         />

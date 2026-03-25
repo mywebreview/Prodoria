@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
-import { client } from '../lib/api';
 
 export default function AuthCallback() {
     useEffect(() => {
-        client.auth.login();
+        // client.auth.login() logic removed
     }, []);
 
     return (
