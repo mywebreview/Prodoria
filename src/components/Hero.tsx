@@ -20,7 +20,7 @@ export default function Hero() {
         <section className="relative min-h-screen overflow-hidden bg-[#F8FAFC]">
             {/* Navbar */}
             <nav className="relative z-20 flex items-center justify-between px-6 md:px-12 lg:px-20 py-5">
-                <img src="../public/logo-black.png" alt="Prodoria Logo" className="w-28" />
+                <img src="/logo-black.png" alt="Prodoria Logo" className="w-28" />
                 <div className="hidden md:flex items-center gap-8 font-jakarta text-sm font-medium text-prodoria-slate">
                     <a href="#features" className="hover:text-prodoria-dark transition-colors">Features</a>
                     <a href="#how-it-works" className="hover:text-prodoria-dark transition-colors">How It Works</a>
@@ -104,7 +104,7 @@ export default function Hero() {
 
                     {/* Main image */}
                     <img
-                        src="../public/hero.webp"
+                        src="/hero.webp"
                         alt="PRODORIA AI Visibility Platform"
                         className="relative w-full rounded-3xl shadow-2xl"
                     />

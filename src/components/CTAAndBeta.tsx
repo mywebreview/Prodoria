@@ -97,7 +97,7 @@ export default function CTAAndBeta() {
                 {/* Background Image */}
                 <div className="absolute inset-0">
                     <img
-                        src="../public/cta.webp"
+                        src="/cta.webp"
                         alt=""
                         className="w-full h-full object-cover"
                     />
@@ -288,7 +288,7 @@ export default function CTAAndBeta() {
                         {/* Brand */}
                         <div>
                             <h3 className="font-jakarta font-bold text-xl text-white mb-3">
-                                <img src="../public/logo-white.png" alt="Prodoria Logo" className="w-28" />
+                                <img src="/logo-white.png" alt="Prodoria Logo" className="w-28" />
                             </h3>
                             <p className="font-jakarta text-sm text-gray-400 leading-relaxed">
                                 Engineering visibility for the AI era.
