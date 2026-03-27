@@ -34,7 +34,7 @@ function sendEmailPlugin(resendApiKey: string): Plugin {
                   'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                  from: 'Prodoria Beta <noreply@prodoria.com>',
+                  from: 'Prodoria Beta <prodoria@prodoria.com>',
                   to: ['hello@prodoria.com'],
                   subject: `New Beta Application from ${name}`,
                   html: `

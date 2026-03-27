@@ -60,7 +60,7 @@ export default function BigStatement() {
                         <div className="relative">
                             <div className="absolute inset-0 bg-gradient-to-br from-prodoria-orange/20 via-prodoria-pink/20 to-prodoria-purple/20 rounded-3xl blur-xl scale-105" />
                             <img
-                                src="../public/side2.webp"
+                                src="/side2.webp"
                                 alt="AI Visibility Features"
                                 className="relative w-full rounded-3xl shadow-lg"
                             />
