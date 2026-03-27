@@ -9,11 +9,11 @@ const __dirname = path.dirname(currentFile);
 const projectRoot = path.resolve(__dirname, '..');
 
 // Base URL of the website (should match the actual domain)
-const baseUrl = "https://atoms.template.com";
+const baseUrl = "https://prodoria.com";
 
 // GA4 Measurement ID - set via site.config.json
 // Format: "G-XXXXXXXXXX" or empty string if not needed
-let GA4_MEASUREMENT_ID = "";
+let GA4_MEASUREMENT_ID = "G-RLJ1V1V72X";
 
 // Source markdown files directory
 // First look for ./seo/content in the project, if not found, look for ../seo/content at the same level
@@ -23,73 +23,73 @@ const blogDir = fs.existsSync(localBlogDir) ? localBlogDir : siblingBlogDir;
 const distBlogDir = path.resolve(projectRoot, 'dist', 'blog');
 
 function getHtmlTemplate(title, content, datePublished, dateModified, meta = {}) {
-    const tags = meta.tags || [];
-    const keywords = meta.keywords || tags.join(', ');
-    const description = meta.description || title;
-    const isoDatePublished = datePublished ? new Date(datePublished).toISOString() : '';
-    const isoDateModified = dateModified ? new Date(dateModified).toISOString() : '';
-    const displayDate = datePublished || dateModified;
-    const isoDate = displayDate ? new Date(displayDate).toISOString() : '';
-    const toc = meta.toc || '';
-    const slug = meta.slug || '';
-    const lang = meta.lang || 'en';
+  const tags = meta.tags || [];
+  const keywords = meta.keywords || tags.join(', ');
+  const description = meta.description || title;
+  const isoDatePublished = datePublished ? new Date(datePublished).toISOString() : '';
+  const isoDateModified = dateModified ? new Date(dateModified).toISOString() : '';
+  const displayDate = datePublished || dateModified;
+  const isoDate = displayDate ? new Date(displayDate).toISOString() : '';
+  const toc = meta.toc || '';
+  const slug = meta.slug || '';
+  const lang = meta.lang || 'en';
 
-    const ogLocaleMap = {
-        'zh': 'zh_CN',
-        'zh-CN': 'zh_CN',
-        'zh-TW': 'zh_TW',
-        'en': 'en_US',
-        'ja': 'ja_JP',
-        'ko': 'ko_KR',
-        'fr': 'fr_FR',
-        'de': 'de_DE',
-        'es': 'es_ES',
-        'pt': 'pt_BR',
-        'ru': 'ru_RU'
-    };
-    const ogLocale = ogLocaleMap[lang] || ogLocaleMap[lang.split('-')[0]] || 'en_US';
+  const ogLocaleMap = {
+    'zh': 'zh_CN',
+    'zh-CN': 'zh_CN',
+    'zh-TW': 'zh_TW',
+    'en': 'en_US',
+    'ja': 'ja_JP',
+    'ko': 'ko_KR',
+    'fr': 'fr_FR',
+    'de': 'de_DE',
+    'es': 'es_ES',
+    'pt': 'pt_BR',
+    'ru': 'ru_RU'
+  };
+  const ogLocale = ogLocaleMap[lang] || ogLocaleMap[lang.split('-')[0]] || 'en_US';
 
-    const blogPostingSchema = {
-        "@context": "https://schema.org",
-        "@type": "BlogPosting",
-        "headline": title,
-        "description": description,
-        "datePublished": isoDatePublished,
-        "dateModified": isoDateModified || isoDatePublished,
-        "author": {
-            "@type": "Person",
-            "name": meta.author || "Sarah"
-        },
-        "keywords": keywords,
-        "inLanguage": lang
-    };
+  const blogPostingSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": title,
+    "description": description,
+    "datePublished": isoDatePublished,
+    "dateModified": isoDateModified || isoDatePublished,
+    "author": {
+      "@type": "Person",
+      "name": meta.author || "Sarah"
+    },
+    "keywords": keywords,
+    "inLanguage": lang
+  };
 
-    const breadcrumbSchema = {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-            {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": baseUrl
-            },
-            {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Blog",
-                "item": `${baseUrl}/blog/`
-            },
-            {
-                "@type": "ListItem",
-                "position": 3,
-                "name": title,
-                "item": `${baseUrl}/blog/${slug}/`
-            }
-        ]
-    };
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": baseUrl
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": `${baseUrl}/blog/`
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": title,
+        "item": `${baseUrl}/blog/${slug}/`
+      }
+    ]
+  };
 
-    return `<!DOCTYPE html>
+  return `<!DOCTYPE html>
 <html lang="${lang}">
 <head>
   <meta charset="UTF-8">
@@ -491,266 +491,266 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
 }
 
 function escapeHtml(text) {
-    const map = {
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#039;'
-    };
-    return text.replace(/[&<>"']/g, m => map[m]);
+  const map = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  };
+  return text.replace(/[&<>"']/g, m => map[m]);
 }
 
 function formatDate(dateString) {
-    if (!dateString) return '';
-    try {
-        const date = new Date(dateString);
-        return date.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
-    } catch (e) {
-        return dateString;
-    }
+  if (!dateString) return '';
+  try {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  } catch (e) {
+    return dateString;
+  }
 }
 
 // Parse frontmatter
 function parseFrontmatter(content) {
-    const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
-    const match = content.match(frontmatterRegex);
+  const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
+  const match = content.match(frontmatterRegex);
 
-    if (!match) {
-        return { frontmatter: {}, markdown: content };
+  if (!match) {
+    return { frontmatter: {}, markdown: content };
+  }
+
+  const frontmatterText = match[1];
+  const markdown = match[2];
+  const frontmatter = {};
+
+  let currentKey = null;
+  let inArray = false;
+
+  // Parse YAML frontmatter
+  frontmatterText.split('\n').forEach(line => {
+    const trimmedLine = line.trim();
+
+    // Skip empty lines
+    if (!trimmedLine) return;
+
+    // Check if it's an array item (starts with -)
+    if (trimmedLine.startsWith('-')) {
+      const value = trimmedLine.substring(1).trim();
+      // Handle quoted values
+      const cleanValue = (value.startsWith('"') && value.endsWith('"')) ||
+        (value.startsWith("'") && value.endsWith("'"))
+        ? value.slice(1, -1) : value;
+
+      if (currentKey && inArray) {
+        frontmatter[currentKey].push(cleanValue);
+      } else if (currentKey) {
+        frontmatter[currentKey] = [cleanValue];
+        inArray = true;
+      }
+      return;
     }
 
-    const frontmatterText = match[1];
-    const markdown = match[2];
-    const frontmatter = {};
+    // Reset array state
+    inArray = false;
 
-    let currentKey = null;
-    let inArray = false;
+    // Check if it's a key-value pair
+    const colonIndex = trimmedLine.indexOf(':');
+    if (colonIndex > 0) {
+      currentKey = trimmedLine.substring(0, colonIndex).trim();
+      let value = trimmedLine.substring(colonIndex + 1).trim();
 
-    // Parse YAML frontmatter
-    frontmatterText.split('\n').forEach(line => {
-        const trimmedLine = line.trim();
+      // Handle quoted strings
+      if ((value.startsWith('"') && value.endsWith('"')) ||
+        (value.startsWith("'") && value.endsWith("'"))) {
+        value = value.slice(1, -1);
+      }
 
-        // Skip empty lines
-        if (!trimmedLine) return;
+      // If value is empty, it might be the start of an array
+      if (!value) {
+        frontmatter[currentKey] = [];
+        inArray = true;
+      } else {
+        frontmatter[currentKey] = value;
+      }
+    }
+  });
 
-        // Check if it's an array item (starts with -)
-        if (trimmedLine.startsWith('-')) {
-            const value = trimmedLine.substring(1).trim();
-            // Handle quoted values
-            const cleanValue = (value.startsWith('"') && value.endsWith('"')) ||
-                (value.startsWith("'") && value.endsWith("'"))
-                ? value.slice(1, -1) : value;
-
-            if (currentKey && inArray) {
-                frontmatter[currentKey].push(cleanValue);
-            } else if (currentKey) {
-                frontmatter[currentKey] = [cleanValue];
-                inArray = true;
-            }
-            return;
-        }
-
-        // Reset array state
-        inArray = false;
-
-        // Check if it's a key-value pair
-        const colonIndex = trimmedLine.indexOf(':');
-        if (colonIndex > 0) {
-            currentKey = trimmedLine.substring(0, colonIndex).trim();
-            let value = trimmedLine.substring(colonIndex + 1).trim();
-
-            // Handle quoted strings
-            if ((value.startsWith('"') && value.endsWith('"')) ||
-                (value.startsWith("'") && value.endsWith("'"))) {
-                value = value.slice(1, -1);
-            }
-
-            // If value is empty, it might be the start of an array
-            if (!value) {
-                frontmatter[currentKey] = [];
-                inArray = true;
-            } else {
-                frontmatter[currentKey] = value;
-            }
-        }
-    });
-
-    return { frontmatter, markdown };
+  return { frontmatter, markdown };
 }
 
 function slugify(text) {
-    return text
-        .toString()
-        .toLowerCase()
-        .trim()
-        .replace(/\s+/g, '-')           // Replace spaces with -
-        .replace(/[^\w\u4e00-\u9fa5-]+/g, '') // Remove non-alphanumeric and non-Chinese characters (keep -)
-        .replace(/--+/g, '-')           // Replace multiple - with single -
-        .replace(/^-+/, '')             // Remove leading -
-        .replace(/-+$/, '');            // Remove trailing -
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-')           // Replace spaces with -
+    .replace(/[^\w\u4e00-\u9fa5-]+/g, '') // Remove non-alphanumeric and non-Chinese characters (keep -)
+    .replace(/--+/g, '-')           // Replace multiple - with single -
+    .replace(/^-+/, '')             // Remove leading -
+    .replace(/-+$/, '');            // Remove trailing -
 }
 
 // Generate table of contents
 function generateTOC(htmlContent) {
-    const headings = [];
-    const regex = /<h([23])[^>]*>(.*?)<\/h\1>/gi;
-    let match;
-    const slugCounts = {};
+  const headings = [];
+  const regex = /<h([23])[^>]*>(.*?)<\/h\1>/gi;
+  let match;
+  const slugCounts = {};
 
-    while ((match = regex.exec(htmlContent)) !== null) {
-        const level = parseInt(match[1]);
-        const text = match[2].replace(/<[^>]*>/g, ''); // Remove HTML tags
-        let slug = slugify(text);
+  while ((match = regex.exec(htmlContent)) !== null) {
+    const level = parseInt(match[1]);
+    const text = match[2].replace(/<[^>]*>/g, ''); // Remove HTML tags
+    let slug = slugify(text);
 
-        // If slug is empty (might be a symbol-only title), use heading-number as fallback
-        if (!slug) {
-            slug = `heading-${headings.length}`;
-        }
-
-        // Handle duplicate slugs
-        if (slugCounts[slug] !== undefined) {
-            slugCounts[slug]++;
-            slug = `${slug}-${slugCounts[slug]}`;
-        } else {
-            slugCounts[slug] = 0;
-        }
-
-        headings.push({ level, text, id: slug });
+    // If slug is empty (might be a symbol-only title), use heading-number as fallback
+    if (!slug) {
+      slug = `heading-${headings.length}`;
     }
 
-    if (headings.length === 0) return { toc: '', content: htmlContent };
+    // Handle duplicate slugs
+    if (slugCounts[slug] !== undefined) {
+      slugCounts[slug]++;
+      slug = `${slug}-${slugCounts[slug]}`;
+    } else {
+      slugCounts[slug] = 0;
+    }
 
-    // Add IDs to headings
-    let contentWithIds = htmlContent;
-    let headingIndex = 0;
-    contentWithIds = contentWithIds.replace(/<h([23])([^>]*)>(.*?)<\/h\1>/gi, (match, level, attrs, text) => {
-        // Check if id attribute already exists
-        if (attrs.includes('id=')) {
-            return match;
-        }
+    headings.push({ level, text, id: slug });
+  }
 
-        // Get corresponding heading information
-        if (headingIndex < headings.length) {
-            const heading = headings[headingIndex];
-            headingIndex++;
-            return `<h${level} id="${heading.id}">${text}</h${level}>`;
-        }
+  if (headings.length === 0) return { toc: '', content: htmlContent };
 
-        return match;
-    });
+  // Add IDs to headings
+  let contentWithIds = htmlContent;
+  let headingIndex = 0;
+  contentWithIds = contentWithIds.replace(/<h([23])([^>]*)>(.*?)<\/h\1>/gi, (match, level, attrs, text) => {
+    // Check if id attribute already exists
+    if (attrs.includes('id=')) {
+      return match;
+    }
 
-    // Generate TOC HTML
-    let tocHtml = '<nav class="toc"><div class="toc-title">Contents</div><ul class="toc-list">';
-    headings.forEach(heading => {
-        const indent = heading.level === 3 ? 'toc-item-h3' : 'toc-item-h2';
-        tocHtml += `<li class="toc-item ${indent}"><a href="#${heading.id}">${heading.text}</a></li>`;
-    });
-    tocHtml += '</ul></nav>';
+    // Get corresponding heading information
+    if (headingIndex < headings.length) {
+      const heading = headings[headingIndex];
+      headingIndex++;
+      return `<h${level} id="${heading.id}">${text}</h${level}>`;
+    }
 
-    return { toc: tocHtml, content: contentWithIds };
+    return match;
+  });
+
+  // Generate TOC HTML
+  let tocHtml = '<nav class="toc"><div class="toc-title">Contents</div><ul class="toc-list">';
+  headings.forEach(heading => {
+    const indent = heading.level === 3 ? 'toc-item-h3' : 'toc-item-h2';
+    tocHtml += `<li class="toc-item ${indent}"><a href="#${heading.id}">${heading.text}</a></li>`;
+  });
+  tocHtml += '</ul></nav>';
+
+  return { toc: tocHtml, content: contentWithIds };
 }
 
 // Configure marked
 marked.setOptions({
-    breaks: true,
-    gfm: true,
+  breaks: true,
+  gfm: true,
 });
 
 // Process a single markdown file
 function processMarkdownFile(filePath) {
-    const content = fs.readFileSync(filePath, 'utf-8');
-    const { frontmatter, markdown } = parseFrontmatter(content);
+  const content = fs.readFileSync(filePath, 'utf-8');
+  const { frontmatter, markdown } = parseFrontmatter(content);
 
-    // Get file system dates
-    // This is more reliable than markdown frontmatter date which may be inaccurate from AI generation
-    const fileStat = fs.statSync(filePath);
-    // datePublished: prefer birthtime (creation time) if available, otherwise use mtime
-    const datePublished = fileStat.birthtime && fileStat.birthtime.getTime() > 0
-        ? fileStat.birthtime.toISOString()
-        : fileStat.mtime.toISOString();
-    // dateModified: always use mtime (modification time) - this is what lastmod should use
-    const dateModified = fileStat.mtime.toISOString();
+  // Get file system dates
+  // This is more reliable than markdown frontmatter date which may be inaccurate from AI generation
+  const fileStat = fs.statSync(filePath);
+  // datePublished: prefer birthtime (creation time) if available, otherwise use mtime
+  const datePublished = fileStat.birthtime && fileStat.birthtime.getTime() > 0
+    ? fileStat.birthtime.toISOString()
+    : fileStat.mtime.toISOString();
+  // dateModified: always use mtime (modification time) - this is what lastmod should use
+  const dateModified = fileStat.mtime.toISOString();
 
-    // Get filename (without extension) as slug
-    const fileName = path.basename(filePath, '.md');
+  // Get filename (without extension) as slug
+  const fileName = path.basename(filePath, '.md');
 
-    // Convert markdown to HTML
-    let htmlContent;
-    let toc = '';
-    try {
-        htmlContent = marked.parse(markdown);
+  // Convert markdown to HTML
+  let htmlContent;
+  let toc = '';
+  try {
+    htmlContent = marked.parse(markdown);
 
-        // Remove H1 tag that might exist at the beginning of content to avoid duplication with page title
-        if (htmlContent.trim().startsWith('<h1')) {
-            htmlContent = htmlContent.replace(/^\s*<h1[^>]*>.*?<\/h1>\s*/i, '');
-        }
-
-        // Generate table of contents and add heading IDs
-        const tocResult = generateTOC(htmlContent);
-        htmlContent = tocResult.content;
-        toc = tocResult.toc;
-    } catch (error) {
-        htmlContent = `<pre>${escapeHtml(markdown)}</pre>`;
+    // Remove H1 tag that might exist at the beginning of content to avoid duplication with page title
+    if (htmlContent.trim().startsWith('<h1')) {
+      htmlContent = htmlContent.replace(/^\s*<h1[^>]*>.*?<\/h1>\s*/i, '');
     }
 
-    const title = frontmatter.title || fileName.replace(/_/g, ' ');
+    // Generate table of contents and add heading IDs
+    const tocResult = generateTOC(htmlContent);
+    htmlContent = tocResult.content;
+    toc = tocResult.toc;
+  } catch (error) {
+    htmlContent = `<pre>${escapeHtml(markdown)}</pre>`;
+  }
 
-    // Generate HTML - use file system dates instead of frontmatter.date
-    const html = getHtmlTemplate(
-        title,
-        htmlContent,
-        datePublished,
-        dateModified,
-        {
-            description: frontmatter.description || title,
-            keywords: frontmatter.keywords || '',
-            tags: frontmatter.tags || [],
-            toc: toc,
-            slug: fileName,
-            author: frontmatter.author,
-            lang: frontmatter.lang || 'en'
-        }
-    );
+  const title = frontmatter.title || fileName.replace(/_/g, ' ');
 
-    // Create a separate directory for each article
-    const articleDir = path.join(distBlogDir, fileName);
-    if (!fs.existsSync(articleDir)) {
-        fs.mkdirSync(articleDir, { recursive: true });
+  // Generate HTML - use file system dates instead of frontmatter.date
+  const html = getHtmlTemplate(
+    title,
+    htmlContent,
+    datePublished,
+    dateModified,
+    {
+      description: frontmatter.description || title,
+      keywords: frontmatter.keywords || '',
+      tags: frontmatter.tags || [],
+      toc: toc,
+      slug: fileName,
+      author: frontmatter.author,
+      lang: frontmatter.lang || 'en'
     }
+  );
 
-    // Write to dist/blog/filename/index.html
-    const outputPath = path.join(articleDir, 'index.html');
-    fs.writeFileSync(outputPath, html, 'utf-8');
+  // Create a separate directory for each article
+  const articleDir = path.join(distBlogDir, fileName);
+  if (!fs.existsSync(articleDir)) {
+    fs.mkdirSync(articleDir, { recursive: true });
+  }
 
-    return {
-        slug: fileName,
-        title,
-        date: datePublished,
-        dateModified: dateModified,
-        tags: frontmatter.tags || [],
-        path: `/blog/${fileName}/`,
-        lang: frontmatter.lang || 'en'
-    };
+  // Write to dist/blog/filename/index.html
+  const outputPath = path.join(articleDir, 'index.html');
+  fs.writeFileSync(outputPath, html, 'utf-8');
+
+  return {
+    slug: fileName,
+    title,
+    date: datePublished,
+    dateModified: dateModified,
+    tags: frontmatter.tags || [],
+    path: `/blog/${fileName}/`,
+    lang: frontmatter.lang || 'en'
+  };
 }
 
 // Generate list page
 function generateListPage(articles) {
-    // Sort by date (newest first)
-    const sortedArticles = [...articles].sort((a, b) => {
-        const dateA = a.date ? new Date(a.date) : new Date(0);
-        const dateB = b.date ? new Date(b.date) : new Date(0);
-        return dateB - dateA;
-    });
+  // Sort by date (newest first)
+  const sortedArticles = [...articles].sort((a, b) => {
+    const dateA = a.date ? new Date(a.date) : new Date(0);
+    const dateB = b.date ? new Date(b.date) : new Date(0);
+    return dateB - dateA;
+  });
 
-    // Use the first article's language as the list page language
-    const pageLang = sortedArticles.length > 0 ? (sortedArticles[0].lang || 'en') : 'en';
+  // Use the first article's language as the list page language
+  const pageLang = sortedArticles.length > 0 ? (sortedArticles[0].lang || 'en') : 'en';
 
-    const listHtml = `<!DOCTYPE html>
+  const listHtml = `<!DOCTYPE html>
 <html lang="${pageLang}">
 <head>
   <meta charset="UTF-8">
@@ -944,56 +944,56 @@ function generateListPage(articles) {
 </body>
 </html>`;
 
-    const listPath = path.join(distBlogDir, 'index.html');
-    fs.writeFileSync(listPath, listHtml, 'utf-8');
+  const listPath = path.join(distBlogDir, 'index.html');
+  fs.writeFileSync(listPath, listHtml, 'utf-8');
 }
 
 function main(config = {}) {
-    // Apply config
-    GA4_MEASUREMENT_ID = config.ga4_measurement_id || "";
+  // Apply config
+  GA4_MEASUREMENT_ID = config.ga4_measurement_id || "";
 
-    // Check if source directory exists
-    if (!fs.existsSync(blogDir)) {
-        return [];
-    }
+  // Check if source directory exists
+  if (!fs.existsSync(blogDir)) {
+    return [];
+  }
 
-    const stat = fs.statSync(blogDir);
-    if (!stat.isDirectory()) {
-        return [];
-    }
+  const stat = fs.statSync(blogDir);
+  if (!stat.isDirectory()) {
+    return [];
+  }
 
-    let files;
+  let files;
+  try {
+    files = fs.readdirSync(blogDir);
+  } catch (error) {
+    return [];
+  }
+
+  const markdownFiles = files.filter(file => file.endsWith('.md'));
+
+  if (markdownFiles.length === 0) {
+    return [];
+  }
+
+  if (!fs.existsSync(distBlogDir)) {
+    fs.mkdirSync(distBlogDir, { recursive: true });
+  }
+
+  const results = [];
+
+  markdownFiles.forEach((file) => {
     try {
-        files = fs.readdirSync(blogDir);
-    } catch (error) {
-        return [];
-    }
+      const filePath = path.join(blogDir, file);
+      const result = processMarkdownFile(filePath);
+      results.push(result);
+    } catch (error) { }
+  });
 
-    const markdownFiles = files.filter(file => file.endsWith('.md'));
+  if (results.length > 0) {
+    generateListPage(results);
+  }
 
-    if (markdownFiles.length === 0) {
-        return [];
-    }
-
-    if (!fs.existsSync(distBlogDir)) {
-        fs.mkdirSync(distBlogDir, { recursive: true });
-    }
-
-    const results = [];
-
-    markdownFiles.forEach((file) => {
-        try {
-            const filePath = path.join(blogDir, file);
-            const result = processMarkdownFile(filePath);
-            results.push(result);
-        } catch (error) { }
-    });
-
-    if (results.length > 0) {
-        generateListPage(results);
-    }
-
-    return results;
+  return results;
 }
 
 export { main };
