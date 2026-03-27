@@ -34,8 +34,8 @@ function sendEmailPlugin(resendApiKey: string): Plugin {
                   'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                  from: 'Prodoria Beta <onboarding@resend.dev>',
-                  to: ['prodoriaofficial@gmail.com'],
+                  from: 'Prodoria Beta <noreply@prodoria.com>',
+                  to: ['hello@prodoria.com'],
                   subject: `New Beta Application from ${name}`,
                   html: `
                     <h2>New Beta Application</h2>
