@@ -16,7 +16,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     const { error } = await resend.emails.send({
-      from: 'Prodoria Beta <onboarding@resend.dev>', // replace with your verified domain later
+      from: 'Prodoria Beta <noreply@prodoria.com>', // ← fixed
       to: ['hello@prodoria.com'],
       subject: `New Beta Application from ${name}`,
       html: `
