@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-const baseUrl = "https://prodoria.com";
+const baseUrl = "https://www.prodoria.com";
 const distDir = "./dist";
 const outFile = "./dist/sitemap.xml";
 const contentDir = "./seo/content";

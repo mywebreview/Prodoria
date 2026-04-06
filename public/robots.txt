@@ -23,4 +23,4 @@ Allow: /
 User-agent: Googlebot
 Allow: /
 
-Sitemap: https://prodoria.com/sitemap.xml
+Sitemap: https://www.prodoria.com/sitemap.xml
